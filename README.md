@@ -10,11 +10,11 @@ employees, and departments for project and task management.
 To use this program to download the zip file of the repository to upload the project files into your IDE. To pre-populate data to test the application, copy and paste the Data and     Schema scripts from the Script folder into MySQL workbench. Launch the application in your IDE from the 'TaskTrackerApplication' file. In your web browser, view the application by 
 going to 'http://localhost:8080/'
 
-For a better understanding of its functionality and how to use the program, feel free to view the [Walk-through Video](https://watch.screencastify.com/v/VQDZpbuMN6kgBjh21NRp).
+For a better understanding of its functionality and how to use the program, feel free to view the [Walk-through Video](https://drive.google.com/file/d/1f9_60K1M7jtpV9Eam0QKrn-apavJR7SP/view?usp=sharing).
 
 **Here's a screenshot of the website:**
 
-![MockUp](./images/)
+![MockUp](./media/TaskerHub%20Mock%20Up.png)
 
 
 ## License

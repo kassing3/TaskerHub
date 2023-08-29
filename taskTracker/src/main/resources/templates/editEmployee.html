@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- META TAGS -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- BOOTSTRAP -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <!-- CSS FILE -->
+    <link href="../css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+
+
+    <!-- TITLE -->
+    <title>TaskerHub</title>
+  </head>
+
+  <body>
+
+    <header>
+
+        <!-- SIDE NAVBAR -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <a href="projects" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Projects</span>
+                        </i>
+                    </a>
+
+                    <a href="tasks" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Tasks</span>
+                        </i>
+                    </a>
+
+                    <a href="employees" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Employees</span>
+                        </i>
+                    </a>
+
+                    <a href="departments" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Departments</span>
+                        </i>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- NAVBAR -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+           <!-- CONTAINER WRAPPER -->
+            <div class="container-fluid">
+                <!-- TOGGLE BUTTON -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+
+                <!-- BRAND -->
+                <a href="/">
+                    <img src="../images/TH-logo-White.png" th:src="@{./images/TH-logo-White.png}" alt="logo" height="75" loading="lazy"/>
+                </a>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <main>
+
+
+        <div class="container">
+
+            <!-- PAGE TITLE -->
+            <div class="pageTitle">
+                <h2>Edit Employee</h2>
+                <hr>
+            </div>
+
+            <!-- EDIT SECTION -->
+            <div class="row">
+                <div class="col">
+
+                    <!-- EDIT FORM -->
+                    <form action="editEmployee" method="POST">
+
+                        <div class="form-group row">
+                            <label for="firstName" class="col-3 col-form-label">
+                                First Name</label>
+                            <div class="col-9">
+                                <input type="text" name="firstName" id="firstName"
+                                       class="form-control" th:value="${employee.firstName}"/>
+                                <div th:if="${#fields.hasErrors('employee.firstName')}">
+                                    <p th:each="error : ${#fields.errors('employee.firstName')}" class="alert alert-danger"
+                                       th:text="${error}"> Invalid First Name </p>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <div class="form-group row">
+                          <label for="lastName" class="col-3 col-form-label">
+                            Last Name</label>
+                          <div class="col-9">
+                            <input type="text" name="lastName" id="lastName"
+                                   class="form-control" th:value="${employee.lastName}"/>
+                            <div th:if="${#fields.hasErrors('employee.lastName')}">
+                              <p th:each="error : ${#fields.errors('employee.lastName')}" class="alert alert-danger"
+                                 th:text="${error}"> Invalid Last Name </p>
+                            </div>
+                          </div>
+                        </div>
+            
+                        <div class="form-group row">
+                          <label for="department" class="col-3 col-form-label">
+                            Department</label>
+                          <div class="col-9">
+                            <select id="department" name="departmentID" class="form-control" >
+            
+                              <option th:if="employee.department != null"
+                                      th:each="department : ${departments}"
+                                      th:value="${department.departmentID}"
+                                      th:text="${department.departmentName}">
+                                Department Name</option>
+                              <option th:if="employee.department == null"
+                                      th:each="department : ${departments}"
+                                      th:value="${department.departmentID}"
+                                      th:text="${department.departmentName}"
+                                      th:selected="${employee.department.departmentID == department.departmentID}">
+                                Department Name</option>
+            
+                            </select>
+                          </div>
+                        </div>
+            
+            
+                        <input type="hidden" name="employeeID" th:value="${employee.employeeID}"/>
+                        <button type="submit" class="btn btn-secondary">
+                            Update Employee</button>
+                    </form>  
+                </div>
+
+            </div>
+
+            
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>        
+  </body>
+</html>

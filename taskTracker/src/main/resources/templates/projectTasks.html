@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- META TAGS -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- BOOTSTRAP -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <!-- CSS FILE -->
+    <link href="../css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+
+
+    <!-- TITLE -->
+    <title>TaskerHub</title>
+  </head>
+
+  <body>
+
+    <header>
+
+        <!-- SIDE NAVBAR -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+
+                    <a href="projects" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Projects</span>
+                        </i>
+                    </a>
+
+                    <a href="tasks" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Tasks</span>
+                        </i>
+                    </a>
+
+                    <a href="employees" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Employees</span>
+                        </i>
+                    </a>
+
+                    <a href="departments" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i lass="fas fa-tachometer-alt fa-fw me-3">
+                            <span>Departments</span>
+                        </i>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+
+        <!-- NAVBAR -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+           <!-- CONTAINER WRAPPER -->
+            <div class="container-fluid">
+                <!-- TOGGLE BUTTON -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+
+                <!-- BRAND -->
+                <a href="/">
+                    <img src="../images/TH-logo-White.png" th:src="@{./images/TH-logo-White.png}" alt="logo" height="75" loading="lazy"/>
+                </a>
+
+            </div>
+        </nav>
+
+    </header>
+
+    <main>
+
+
+        <div class="container">
+
+            <!-- PAGE TITLE -->
+            <div class="pageTitle">
+                <h2>Project Details</h2>
+                <hr>
+            </div>
+
+
+            <!-- DETAILS SECTION -->
+            <div class="row">
+                <div class="col">
+
+                    <h3 class="card-title text-center" th:text="${project.projectName}">
+                        Project Name
+                    </h3>
+                    <h5>Description</h5>
+                    <span th:text="${project.projectDesc}"> Project Description</span>
+                   
+                </div>
+
+            </div>
+
+            <!-- SUB DETAILS TABLE -->
+            <div class="row pt-4">
+                <div class="col">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>TASK NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>PROJECT</th>
+                                <th>STATUS</th>
+                                <th>PRIORITY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="task : ${project.tasks}">
+
+                                <!-- TASK ID -->
+                                <td th:text="${task.taskID}">ID</td>
+                                
+      
+                                <!-- TASK NAME -->
+                                <td th:text="${task.taskName}">Name</td>
+                    
+
+                                <!-- TASK DeSC -->
+                                <td th:text="${task.taskDesc}">Desc</td>
+
+                                <!-- TASK Project -->
+                                <td th:if="${task.project == null}" th:text="${'No Project Assigned'}">Project</td>
+                                <td th:if="${task.project !=null}" th:text="${task.project.projectName}">Project</td>
+
+                            
+                                <!-- TASK STATUS -->
+                                <td th:if="${task.taskStatus.taskStatusID == 1}" th:text="${task.taskStatus.taskStatusName}" class="bg-secondary">Status</td>
+                                <td th:if="${task.taskStatus.taskStatusID == 2}" th:text="${task.taskStatus.taskStatusName}" class="bg-warning">Status</td>
+                                <td th:if="${task.taskStatus.taskStatusID == 3}" th:text="${task.taskStatus.taskStatusName}" class="bg-info">Status</td>
+                                <td th:if="${task.taskStatus.taskStatusID == 4}" th:text="${task.taskStatus.taskStatusName}" class="bg-success">Status</td>
+                                <td th:if="${task.taskStatus.taskStatusID == 5}" th:text="${task.taskStatus.taskStatusName}" class="bg-danger">Status</td>
+
+                                <!-- TASK PRIORITY -->
+                                <td th:text="${task.taskPriority.taskPriorityType}">Priority</td>
+
+                        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    
+            
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>        
+  </body>
+</html>
